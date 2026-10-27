@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-starter-kit",
+  "description": "The Claude starter kit's plugins.",
+  "owner": { "name": "DontGoToCollege", "url": "https://github.com/DontGoToCollege" },
+  "plugins": [
+    {
+      "name": "setup-band",
+      "description": "Shows above the prompt whether this computer's Claude setup is current and backed up.",
+      "source": "./band",
+      "category": "productivity"
+    }
+  ]
+}

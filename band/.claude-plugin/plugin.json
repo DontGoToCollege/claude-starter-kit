@@ -1,0 +1,29 @@
+{
+  "name": "setup-band",
+  "version": "1.0.0",
+  "description": "Shows whether this computer's Claude setup is current and backed up: rules version vs GitHub, the weekly update, unpublished rule edits, projects not backed up and tool versions, with Update now, Ask Claude, What's new, Details and Projects buttons.",
+  "author": { "name": "DontGoToCollege", "url": "https://github.com/DontGoToCollege" },
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "show": {
+      "type": "string",
+      "title": "What the band shows",
+      "description": "everything: always one line, with a check when all is well. problems only: nothing at all until something needs you.",
+      "options": ["everything", "problems only"],
+      "default": "everything"
+    },
+    "checkMinutes": {
+      "type": "number",
+      "title": "Check every (minutes)",
+      "description": "How often the band checks the rules, the weekly update and your projects. Plugin and tool versions are checked every 30 minutes.",
+      "default": 5
+    },
+    "notify": {
+      "type": "boolean",
+      "title": "Pop-up for new problems",
+      "description": "Show a short pop-up the first time something needs you, so you notice even without looking at the band.",
+      "default": true
+    }
+  }
+}

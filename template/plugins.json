@@ -1,0 +1,19 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-starter-kit": {
+      "source": { "source": "github", "repo": "DontGoToCollege/claude-starter-kit" },
+      "autoUpdate": true
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "setup-band@claude-starter-kit": true,
+    "ponytail@ponytail": true
+  },
+  "tools": {
+    "rea": false
+  }
+}
