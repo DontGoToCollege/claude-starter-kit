@@ -2,7 +2,7 @@ import { expect, test } from 'claude-code/testing'
 
 const HOME = 'C:/Users/Friend'
 const DIR = `${HOME}/Claude Projects`
-// What Setup.cmd writes; hands-off names match whatever their case.
+// What Get-ClaudeRules.ps1 installs; hands-off names match whatever their case.
 const SETTINGS = JSON.stringify({ owner: 'Friend', rulesRepo: 'Friend/claude-rules', projectsFolder: '~\\Claude Projects', newRepos: 'private', handsOff: ['taxes', 'WORK'] })
 
 const ok = (stdout = '') => ({ value: { exitCode: 0, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false } })

@@ -87,7 +87,7 @@ function issuesOf(s: Status): Issue[] {
     issues.push({
       key: 'unpublished',
       text: "Your rules have changes that aren't on GitHub yet.",
-      ask: { label: 'Ask Claude to publish', prompt: 'Publish my Claude rules changes: raise the Rules version in CLAUDE.md and run ~/.claude/claude-rules/Publish-ClaudeRules.ps1.' },
+      ask: { label: 'Ask Claude to publish', prompt: 'Publish my Claude rules changes: raise the Rules version in CLAUDE.md and run Publish-ClaudeRules.ps1 from my claude-rules folder.' },
     })
   }
   if (s.weekly !== null) issues.push({ key: `weekly:${s.weekly}`, text: s.weekly })
@@ -128,7 +128,7 @@ async function homeDir($: EngineInterface) {
   return (await $.env.get('USERPROFILE')) ?? (await $.env.get('HOME')) ?? ''
 }
 
-// Written by Setup.cmd on first run; null until then. `projectsFolder` may start with ~ for the home folder.
+// Written by Get-ClaudeRules.ps1 (from my claude-rules repo); null until it has run here. `projectsFolder` may start with ~ for the home folder.
 async function settingsOf($: EngineInterface, home: string): Promise<Settings | null> {
   const text = await $.fs.read(`${home}/.claude/claude-rules/settings.json`).catch(() => null)
   if (text === null) return null
@@ -222,7 +222,7 @@ async function pluginVersion($: EngineInterface, home: string, list: PluginList,
   return { name, installed, latest, updatesItself: true }
 }
 
-// The version on GitHub. A marketplace can keep the plugin in a subfolder, as the starter kit keeps this band in band/.
+// The version on GitHub. A marketplace can keep a plugin in a subfolder (its source), or at its root.
 async function latestPluginVersion($: EngineInterface, repo: string, name: string) {
   const market = await ghFile($, repo, '.claude-plugin/marketplace.json')
   const plugins = market === null ? [] : ((JSON.parse(market) as { plugins?: { name: string; source?: unknown }[] }).plugins ?? [])
@@ -337,7 +337,7 @@ async function updateNow($: EngineInterface, isCheckOnly: boolean) {
       if (!r.isOk) note = 'The update ran into a problem: the band says what.'
       else if (/Installed rules|Set plugins|Set up REA/.test(r.out)) note = 'Updated. A new chat loads any new plugin or REA version.'
     } else {
-      note = 'Run Setup.cmd once on this computer first.'
+      note = 'Run Get-ClaudeRules.cmd once on this computer first.'
     }
   }
   await check($, true, true)
@@ -412,7 +412,7 @@ const linesIn = (text: string) => text.split('\n').map(l => l.trim()).filter(Boo
 async function loadRepos($: EngineInterface) {
   const settings = await settingsOf($, await homeDir($))
   if (settings === null) {
-    await update($, getLog, () => ['Run Setup.cmd once on this computer first.'])
+    await update($, getLog, () => ['Run Get-ClaudeRules.cmd once on this computer first.'])
     await update($, repos, r => r ?? [])
     return
   }
@@ -532,7 +532,7 @@ export const register: Register = (on, options) => {
       return (
         <Box flexDirection="column">
           {await next(e)}
-          <Text color="warning">Claude setup isn't finished on this computer: run Setup.cmd from the starter kit once.</Text>
+          <Text color="warning">Claude setup isn't finished on this computer: run Get-ClaudeRules.cmd from your claude-rules repo once.</Text>
         </Box>
       )
     }

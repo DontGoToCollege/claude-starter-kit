@@ -2,7 +2,7 @@
   "name": "setup-band",
   "version": "1.0.0",
   "description": "Shows whether this computer's Claude setup is current and backed up: rules version vs GitHub, the weekly update, unpublished rule edits, projects not backed up and tool versions, with Update now, Ask Claude, What's new, Details and Projects buttons.",
-  "author": { "name": "DontGoToCollege", "url": "https://github.com/DontGoToCollege" },
+  "author": { "name": "{{GITHUB_NAME}}", "url": "https://github.com/{{GITHUB_NAME}}" },
   "license": "MIT",
   "types": "./types/index.d.ts",
   "userConfig": {

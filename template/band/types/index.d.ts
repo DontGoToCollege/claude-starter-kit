@@ -38,7 +38,7 @@ declare module 'claude-code' {
       picked: Record<string, string>
       isGetting: boolean
       getLog: string[]
-      // needsSetup: no settings file yet (Setup.cmd hasn't run on this computer).
+      // needsSetup: no settings file yet (Get-ClaudeRules.cmd hasn't run on this computer).
       needsSetup: boolean
     }
   }

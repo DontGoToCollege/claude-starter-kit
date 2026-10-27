@@ -1,7 +1,7 @@
 {
   "extraKnownMarketplaces": {
-    "claude-starter-kit": {
-      "source": { "source": "github", "repo": "DontGoToCollege/claude-starter-kit" },
+    "setup-band": {
+      "source": { "source": "github", "repo": "{{BAND_REPO}}" },
       "autoUpdate": true
     },
     "ponytail": {
@@ -10,9 +10,10 @@
     }
   },
   "enabledPlugins": {
-    "setup-band@claude-starter-kit": true,
+    "setup-band@setup-band": true,
     "ponytail@ponytail": true
   },
+  "mcpServers": {},
   "tools": {
     "rea": false
   }
