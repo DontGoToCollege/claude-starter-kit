@@ -9,7 +9,7 @@ Both are also downloaded into your projects folder. Then it runs your own Get-Cl
 computer and a weekly update from your repos. After that nothing comes from the kit: everything is yours to change.
 Running it again is safe: whatever already exists is kept, and only missing pieces are added.
 #>
-$KitVersion = '1.1.0'
+$KitVersion = '1.2.0'
 $kit = 'DontGoToCollege/claude-starter-kit'
 $ErrorActionPreference = 'Stop'
 # Any failure ends with one plain sentence instead of PowerShell's red error text.

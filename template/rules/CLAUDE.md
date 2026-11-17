@@ -18,6 +18,7 @@ My GitHub account is `{{GITHUB_NAME}}`. Everything below is mine to change: the 
   - A mod that draws above the prompt must include `await next(e)` in what it returns, or it hides other mods' bands. On the desktop app, buttons are native and taller than a text row: give them a row of their own, never beside text.
   - setup-band shows above the prompt whether this setup is current and backed up. It reads `~\.claude\claude-rules\settings.json`, and reloads open chats once a newer copy of itself is installed.
 - Everything stays current by itself: plugins with `"autoUpdate": true` update inside Claude, and the script sets up a weekly Windows task ("Claude rules weekly update") that runs its newest copy with `-Quiet`. Its log is `~\.claude\claude-rules\last-run.log`. If something seems out of date on a computer, check that log first.
+- **Rules go here, not in memory.** Claude's memory stays on one computer. Anything I want done every time (a preference, a correction, a recipe) goes into this file and gets published. Memory is only for facts about one computer or notes on one project's progress.
 
 ## Where projects live
 - Every new project gets its own folder: `{{PROJECTS_FOLDER}}\<Project Name>` (`~` is my user folder).
@@ -27,9 +28,20 @@ My GitHub account is `{{GITHUB_NAME}}`. Everything below is mine to change: the 
 - Every project has a version number in its source (e.g. `VERSION = "1.0.0"`), raised for each release.
 - The current release sits at the project root (e.g. `MyApp.exe`). Every build is also kept as `<Project>\Versions\Archive\<Name>-<version>.<ext>`.
 - Never overwrite or delete an archived build. Give each project a build step that refuses to rebuild a version that's already archived.
+- While trying changes, build into a scratch folder that isn't archived (a `-Test`-style option), and archive only the build that gets released.
+- When a new build replaces an app I'm running, close the running copy, swap in the new version and start it again, without asking. Close it gracefully when it holds data that must be saved, and force it only as a last resort. Start the new copy through Windows so it outlives the build script.
+
+## Testing on my PC
+I keep using the computer while Claude tests, so testing happens behind whatever I'm doing and never touches my input.
+- Never send real keyboard or mouse input: no SendKeys, SendInput, AutoHotkey or computer-use clicks. They go to whatever window is in front, and that may be mine.
+- Never bring a test window to the front, make it always-on-top or take focus. Leave it behind my windows (or move it off-screen without activating it).
+- Drive the app through its own windows only: PostMessage to its controls, or UI Automation (Invoke, Value) for buttons and fields. Take screenshots with PrintWindow from a DPI-aware process, never with screen grabs, which capture whatever is on top.
+- Don't touch what I share with the test: save and restore the clipboard if a test uses it, keep test files in the build or scratch folder, and close every test window and process when done.
+- If something can only be checked with real input or on screen (drag and drop, native file dialogs, multi-monitor), use the question box to ask me to step away first, or leave it for me to test.
 
 ## GitHub (backup and sharing)
-- Every project gets its own **{{REPO_VISIBILITY}}** repo at `github.com/{{GITHUB_NAME}}/<Project Name>`, created with the `gh` CLI (already signed in). {{VISIBILITY_NOTE}} The local `Versions\Archive` stays the full archive.
+- Every project gets its own **{{REPO_VISIBILITY}}** repo at `github.com/{{GITHUB_NAME}}/<Project Name>`, created with the `gh` CLI (already signed in). {{VISIBILITY_NOTE}} Never change a repo's visibility without asking. The local `Versions\Archive` stays the full archive.
+- **My computers and GitHub always mirror each other.** Before touching a project, `git pull` it and check its Releases; after every change, commit, push and release, so nothing lives on only one side. Check a version number isn't already taken on GitHub before building it. Archived builds in `Versions\Archive` must be byte-identical to the matching Release assets (GitHub's copy wins if they differ).
 - Commits use my private GitHub address already set in git (`{{NOREPLY_EMAIL}}`); never put a real email in a commit.
 - Before every push, check what's going to GitHub: no passwords, keys, tokens, personal paths, Wi-Fi names, IP addresses or personal data in the files.
 - Built programs (.exe etc.) never go in the code history: `.gitignore` them along with `Versions/`, and attach each release's program to a GitHub Release instead (`gh release create v<version> <file>`).
