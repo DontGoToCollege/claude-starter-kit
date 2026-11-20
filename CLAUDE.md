@@ -2,7 +2,7 @@
 
 Build, test and release recipes, decisions and gotchas, kept in the repo so every computer has them.
 
-`%USERPROFILE%\Music\Claude\Projects\claude-starter-kit` is the public repo DontGoToCollege/claude-starter-kit, started 2026-10-27. 1.1.0 is current. The owner's own claude-rules and rules-band are separate and untouched.
+`%USERPROFILE%\Music\Claude\Projects\claude-starter-kit` is the public repo DontGoToCollege/claude-starter-kit, started 2026-10-27. 1.2.0 is current. The owner's own claude-rules and rules-band are separate and untouched.
 
 - **The owner's goal (2026-10-27):** friends run the kit **once** and are then fully self-sufficient. Nothing should keep pulling from the owner (no automations, no update-from-kit). Feedback from friends comes back through the owner.
 - **Setup.cmd** (the release asset, CRLF) downloads the latest tag's Setup.ps1 to %TEMP% and runs it.
